@@ -114,7 +114,7 @@ class Parser:
 
     def parse_count(self):
         self.match('COUNT')
-        value = bool(self.current_token.value)
+        value = self.current_token.value.lower() == 'true'
         self.match('BOOL')
         return ast.CountNode(value)
     
@@ -194,7 +194,7 @@ class Parser:
 
 # Example usage
 if __name__ == '__main__':
-    text = '''$select=id,name,description,properties&$top=100&$filter=properties/type eq 'station'&$expand=Locations,Datastreams($select=id,name,unitOfMeasurement;$expand=ObservedProperty($select=name),Observations($select=result,phenomenonTime;$orderby=phenomenonTime desc,result;$top=1))'''
+    text = '''$count=true'''
     lexer = Lexer(text)
     tokens = lexer.tokens
 
