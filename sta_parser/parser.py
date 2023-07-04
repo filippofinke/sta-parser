@@ -201,5 +201,4 @@ if __name__ == '__main__':
 
     parser = Parser(tokens)
     ast = parser.parse()
-    print("Parsing successful!")
     print(ast)
