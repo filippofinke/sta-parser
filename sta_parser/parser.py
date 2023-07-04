@@ -4,8 +4,8 @@ Parser for the SensorThings API query language.
 Author: Filippo Finke
 """
 
-from lexer import Lexer
-import ast
+from sta_parser.lexer import Lexer
+import sta_parser.ast as ast
 
 class Parser:
     def __init__(self, tokens):
@@ -155,7 +155,7 @@ class Parser:
         
         self.match('RIGHT_PAREN')
 
-        return ast.QueryNode(select, filter, expand, orderby, skip, top, count)
+        return ast.QueryNode(select, filter, expand, orderby, skip, top, count, True)
 
     def parse_query(self):
         select = None
