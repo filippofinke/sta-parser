@@ -32,7 +32,7 @@ class Parser:
         identifiers = []
         identifiers.append(ast.IdentifierNode(self.current_token.value))
         self.match('IDENTIFIER')
-        while self.current_token.type == 'VALUE_SEPARATOR':
+        while self.check_token('VALUE_SEPARATOR'):
             self.match('VALUE_SEPARATOR')
             identifiers.append(ast.IdentifierNode(self.current_token.value))
             self.match('IDENTIFIER')
