@@ -38,11 +38,11 @@ class Parser:
             self.match('IDENTIFIER')
         return identifiers
 
-    def parse_filter(self):
+    def parse_filter(self, is_in_subquery=False):
         self.match('FILTER')
         filter = ""
         
-        while not self.check_token('OPTIONS_SEPARATOR') and not self.check_token('SUBQUERY_SEPARATOR') and self.current_token != None:
+        while not self.check_token('OPTIONS_SEPARATOR') and not self.check_token('SUBQUERY_SEPARATOR') and self.current_token != None and not (is_in_subquery and self.check_token('RIGHT_PAREN')):
             filter += self.current_token.value
             self.next_token()
 
@@ -133,7 +133,7 @@ class Parser:
             if self.current_token.type == 'SELECT':
                 select = self.parse_select()
             elif self.current_token.type == 'FILTER':
-                filter = self.parse_filter()
+                filter = self.parse_filter(True)
             elif self.current_token.type == 'EXPAND':
                 expand = self.parse_expand()
             elif self.current_token.type == 'ORDERBY':
