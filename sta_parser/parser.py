@@ -42,7 +42,7 @@ class Parser:
         self.match('FILTER')
         filter = ""
         
-        while not self.check_token('OPTIONS_SEPARATOR') and not self.check_token('RIGHT_PAREN') and self.current_token != None:
+        while not self.check_token('OPTIONS_SEPARATOR') and not self.check_token('SUBQUERY_SEPARATOR') and self.current_token != None:
             filter += self.current_token.value
             self.next_token()
 
