@@ -19,68 +19,56 @@ class PrettyPrinter(object):
                 lines += '{}: {}'.format(key, val).split('\n')            
         return '\n'.join(lines)
 
-class ASTNode(PrettyPrinter):
+class Node(PrettyPrinter):
     pass
 
-class IdentifierNode(ASTNode):
+class IdentifierNode(Node):
     def __init__(self, name):
         self.name = name
 
-class SelectNode(ASTNode):
+class SelectNode(Node):
     def __init__(self, identifiers):
         self.identifiers = identifiers
 
 
-class FilterNode(ASTNode):
+class FilterNode(Node):
     def __init__(self, filter):
         self.filter = filter
 
 
-class ExpandNodeIdentifier(ASTNode):
+class ExpandNodeIdentifier(Node):
     def __init__(self, identifier, subquery=None):
         self.identifier = identifier
         self.subquery = subquery
 
 
-class ExpandNode(ASTNode):
+class ExpandNode(Node):
     def __init__(self, identifiers):
         self.identifiers = identifiers
 
-
-
-class OrderByNodeIdentifier(ASTNode):
+class OrderByNodeIdentifier(Node):
     def __init__(self, identifier, order):
         self.identifier = identifier
         self.order = order
 
-
-
-class OrderByNode(ASTNode):
+class OrderByNode(Node):
     def __init__(self, identifiers):
         self.identifiers = identifiers
 
-
-
-class SkipNode(ASTNode):
+class SkipNode(Node):
     def __init__(self, count):
         self.count = count
 
-
-
-class TopNode(ASTNode):
+class TopNode(Node):
     def __init__(self, count):
         self.count = count
 
-
-
-class CountNode(ASTNode):
+class CountNode(Node):
     def __init__(self, value):
         self.value = value
 
-
-
-class QueryNode(ASTNode):
-    def __init__(self, select=None, filter=None, expand=None, orderby=None, skip=None, top=None, count=None):
+class QueryNode(Node):
+    def __init__(self, select=None, filter=None, expand=None, orderby=None, skip=None, top=None, count=None, is_subquery=False):
         self.select = select
         self.filter = filter
         self.expand = expand
@@ -88,3 +76,4 @@ class QueryNode(ASTNode):
         self.skip = skip
         self.top = top
         self.count = count
+        self.is_subquery = is_subquery
