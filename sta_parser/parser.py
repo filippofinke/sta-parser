@@ -182,10 +182,11 @@ class Parser:
                 top = self.parse_top()
             elif self.current_token.type == 'COUNT':
                 count = self.parse_count()
-            elif self.current_token.type == 'OPTIONS_SEPARATOR':
-                self.match('OPTIONS_SEPARATOR')
             else:
                 raise Exception(f"Unexpected token: {self.current_token.type}")
+            
+            if self.current_token != None:
+                self.match('OPTIONS_SEPARATOR')
 
         return ast.QueryNode(select, filter, expand, orderby, skip, top, count)
 
@@ -194,7 +195,7 @@ class Parser:
 
 # Example usage
 if __name__ == '__main__':
-    text = '''$count=true'''
+    text = '''$select=id,name,description,properties&$top=1000&$filter=properties/type eq 'station'&$expand=Locations,Datastreams($select=id,name,unitOfMeasurement;$expand=ObservedProperty($select=name),Observations($select=result,phenomenonTime;$orderby=phenomenonTime desc;$top=1))'''
     lexer = Lexer(text)
     tokens = lexer.tokens
 
