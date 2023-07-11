@@ -25,7 +25,7 @@ TOKEN_TYPES = {
     'OR': r'\bor\b',
     'ORDER': r'\basc\b|\bdesc\b',
     'BOOL': r'\btrue\b|\bfalse\b',
-    'IDENTIFIER': r'[a-zA-Z_][a-zA-Z0-9_/]*',
+    'IDENTIFIER': r'@{0,1}[a-zA-Z_][.a-zA-Z0-9_/]*',
     'FLOAT': r'[0-9]+\.[0-9]+',
     'INTEGER': r'[0-9]+',
     'STRING': r"'[^']*'",

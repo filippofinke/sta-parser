@@ -64,7 +64,7 @@ class NodeVisitor(Visitor):
         return '&'.join(query_parts)
 
 if __name__ == '__main__':
-    text = '''$select=id,name,description,properties&$top=1000&$filter=properties/type eq 'station'&$expand=Locations,Datastreams($select=id,name,unitOfMeasurement;$expand=ObservedProperty($select=name),Observations($select=result,phenomenonTime;$orderby=phenomenonTime desc;$top=1))'''
+    text = '''$select=@iot.id,@iot.selfLink,name,description,properties&$top=1000&$filter=properties/type eq 'station'&$expand=Locations,Datastreams($select=id,name,unitOfMeasurement;$expand=ObservedProperty($select=name),Observations($select=result,phenomenonTime;$orderby=phenomenonTime desc;$top=1))'''
     lexer = Lexer(text)
     tokens = lexer.tokenize()
     parser = Parser(tokens)
